@@ -211,6 +211,36 @@ void HeapSort(int A[], int N)
 	}
 }
 
+//8.计数排序--要求输入的数据必须是有确定范围的整数
+void CountingSort(int A[], int N)
+{
+	int bias, min = A[0], max = A[0];
+	for (int i = 1; i < N; i++)
+	{
+		if (A[i] > max)
+			max = A[i];
+		if (A[i] < min)
+			min = A[i];
+	}
+	bias = 0 - min;
+	int* bucket = new int[max - min + 1];
+	fill(bucket, bucket + max - min, 0);
+	for (int i = 0; i < N; i++)
+		bucket[A[i] + bias]++;
+
+	int Pos = 0, i = 0;
+	while (i < N)
+	{
+		if (bucket[i] != 0)
+		{
+			A[Pos++] = i - bias;
+			bucket[i]--;
+		}
+		else
+			i++;	
+	}
+}
+
 //冒泡排序测试
 void test_BubbleSort()
 {
